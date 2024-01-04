@@ -17,6 +17,15 @@ function App() {
     });
     setProducts(newProducts);
   };
+  const onEditProduct = (id, data) => {
+    const newProducts = products.map((product) => {
+      if (product.id === id) {
+        return { ...product, ...data };
+      }
+      return product;
+    });
+    setProducts(newProducts);
+  };
   return (
     <div className="max-w-[1500px] mx-auto">
       <h1 className="text-center text-4xl font-medium mt-5">Belanja Mobil</h1>
@@ -27,6 +36,7 @@ function App() {
             product={product}
             key={product.id}
             onDeleteProduct={onDeleteProduct}
+            onEditProduct={onEditProduct}
           />
         ))}
       </div>
