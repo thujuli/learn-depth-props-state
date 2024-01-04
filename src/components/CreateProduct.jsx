@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function CreateProduct({ handleCreateProduct }) {
+export default function CreateProduct({ onCreateProduct }) {
   const [showForm, setShowForm] = useState(false);
   const initialState = {
     nama: "",
@@ -13,7 +13,7 @@ export default function CreateProduct({ handleCreateProduct }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleCreateProduct(formData);
+    onCreateProduct(formData);
     setFormData(initialState);
   };
   return (
