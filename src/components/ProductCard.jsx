@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
-export default function ProductCard({ product }) {
-  const { nama, deskripsi, imageURL } = product;
+export default function ProductCard({ product, onDeleteProduct }) {
   const [counter, setCounter] = useState(0);
   const handleAddCounter = () => {
     setCounter(counter + 1);
@@ -9,12 +10,30 @@ export default function ProductCard({ product }) {
   const handleMinCounter = () => {
     setCounter(counter - 1);
   };
+  const handleDeleteProduct = () => {
+    onDeleteProduct(product.id);
+  };
   return (
     <div className="relative flex flex-col gap-y-5 border-2 border-black rounded-lg overflow-hidden shadow-lg justify-between">
-      <img src={imageURL} alt="" className="w-full object-cover h-[220px]" />
+      <div className="absolute top-0 right-0 bg-slate-400 px-1 space-x-2 rounded">
+        <button type="button">
+          <FaEdit className="hover:text-yellow-300" />
+        </button>
+        <button type="button">
+          <MdDeleteForever
+            className="hover:text-red-400"
+            onClick={handleDeleteProduct}
+          />
+        </button>
+      </div>
+      <img
+        src={product.imageURL}
+        alt=""
+        className="w-full object-cover h-[220px]"
+      />
       <div className="mx-3">
-        <h2 className="text-2xl font-semibold mb-3">{nama}</h2>
-        <p className="text-base">{deskripsi}</p>
+        <h2 className="text-2xl font-semibold mb-3">{product.nama}</h2>
+        <p className="text-base">{product.deskripsi}</p>
       </div>
       <div className="mx-3">
         {counter ? (
