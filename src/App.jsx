@@ -1,26 +1,38 @@
-import { useState } from "react";
-import { Products } from "./data/product";
+import { useState, useEffect } from "react";
 import ProductCard from "./components/ProductCard";
 import CreateProduct from "./components/CreateProduct";
+import {
+  deleteProduct,
+  getProducts,
+  createProduct,
+  updateProduct,
+} from "./api/products";
 
 function App() {
-  const [products, setProducts] = useState(Products);
-  const onCreateProduct = (product) => {
-    setProducts([
-      ...products,
-      { ...product, id: Math.floor(Math.random() * 7777777) },
-    ]);
+  const [products, setProducts] = useState([]);
+  const fetchData = async () => {
+    const response = await getProducts();
+    setProducts([...response.data]);
   };
-  const onDeleteProduct = (id) => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const onCreateProduct = async (product) => {
+    const response = await createProduct(product);
+    setProducts([...products, response.data]);
+  };
+  const onDeleteProduct = async (id) => {
+    deleteProduct(id);
     const newProducts = products.filter((product) => {
       return product.id != id;
     });
     setProducts(newProducts);
   };
-  const onEditProduct = (id, data) => {
+  const onEditProduct = async (id, data) => {
+    const response = await updateProduct(id, data);
     const newProducts = products.map((product) => {
       if (product.id === id) {
-        return { ...product, ...data };
+        return { ...product, ...response.data };
       }
       return product;
     });
