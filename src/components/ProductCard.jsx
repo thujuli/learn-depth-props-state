@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import EditProduct from "./EditProduct";
+import ProductContext from "../context/products";
 
-export default function ProductCard({
-  product,
-  onDeleteProduct,
-  onEditProduct,
-}) {
+export default function ProductCard({ product }) {
+  const { onDeleteProduct } = useContext(ProductContext);
   const [counter, setCounter] = useState(0);
   const [showEdit, setShowEdit] = useState(false);
   const handleAddCounter = () => {
@@ -25,11 +23,7 @@ export default function ProductCard({
   return (
     <>
       {showEdit ? (
-        <EditProduct
-          product={product}
-          handleShowEdit={handleShowEdit}
-          onEditProduct={onEditProduct}
-        />
+        <EditProduct product={product} handleShowEdit={handleShowEdit} />
       ) : (
         <div className="relative flex flex-col gap-y-5 border-2 border-black rounded-lg overflow-hidden shadow-lg justify-between">
           <div className="absolute top-0 right-0 bg-slate-400 px-1 space-x-2 rounded">

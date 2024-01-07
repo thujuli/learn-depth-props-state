@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ProductContext from "../context/products";
 
-export default function EditProduct({
-  product,
-  handleShowEdit,
-  onEditProduct,
-}) {
+export default function EditProduct({ product, handleShowEdit }) {
+  const { onEditProduct } = useContext(ProductContext);
   const initialState = {
     id: product.id,
     nama: product.nama,

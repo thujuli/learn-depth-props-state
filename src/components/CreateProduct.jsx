@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ProductContext from "../context/products";
 
-export default function CreateProduct({ onCreateProduct }) {
+export default function CreateProduct() {
+  const { onCreateProduct } = useContext(ProductContext);
   const [showForm, setShowForm] = useState(false);
   const initialState = {
     nama: "",
